@@ -111,6 +111,18 @@ mascota **nunca** se persisten: son derivados.
 
 Contraseñas con bcrypt, JWT HS256 con caducidad de 7 días y límite de intentos en el acceso.
 
+## Despliegue (servidor)
+
+Publicado en `http://2.25.102.3/gestor-tareas/`, todo dentro de `/var/www/gestor-tareas`:
+
+- `app/`: clon de `main` (la API corre con PM2 como `gestor-tareas-api`, puerto 3020 local).
+- `web/`: la web compilada, que GitHub Actions (`.github/workflows/web.yml`) publica en la rama `web`.
+
+Cada push a `main` se publica solo: Actions compila la web y el temporizador
+`gestor-tareas-actualizar.timer` revisa GitHub cada minuto, descarga la web y reinicia la API
+si cambió (`deploy/actualizar.sh`). Basta con recargar la página. Registro:
+`journalctl -u gestor-tareas-actualizar -n 50`.
+
 ## Voz por plataforma
 
 - **Web**: Chrome y Edge (usan el servicio de voz del navegador, requiere internet).

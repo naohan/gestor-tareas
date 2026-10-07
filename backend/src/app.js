@@ -11,6 +11,7 @@ export function createApp(pool) {
   const app = express();
 
   app.disable('x-powered-by');
+  app.set('trust proxy', config.trustProxy);
   app.use(helmet());
   app.use(cors({ origin: config.corsOrigin }));
   app.use(express.json({ limit: '2mb' }));

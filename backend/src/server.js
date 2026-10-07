@@ -5,8 +5,8 @@ import { createPool } from './db.js';
 const pool = createPool();
 const app = createApp(pool);
 
-const server = app.listen(config.port, () => {
-  console.log(`API de Foco escuchando en http://localhost:${config.port}`);
+const server = app.listen(config.port, config.host, () => {
+  console.log(`API de Foco escuchando en http://${config.host ?? 'localhost'}:${config.port}`);
 });
 
 function shutdown() {

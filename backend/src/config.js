@@ -12,6 +12,10 @@ if (jwtSecret.length < 32) {
 export const config = {
   isProduction,
   port: Number(env.PORT ?? 3000),
+  host: env.HOST || undefined,
+  // Número de proxies (p. ej. nginx) delante de la API; sin él, el límite de
+  // intentos trataría a todos los usuarios como una sola IP.
+  trustProxy: env.TRUST_PROXY ? Number(env.TRUST_PROXY) : false,
   corsOrigin: env.CORS_ORIGIN ? env.CORS_ORIGIN.split(',').map((o) => o.trim()) : '*',
   jwt: {
     secret: jwtSecret,
